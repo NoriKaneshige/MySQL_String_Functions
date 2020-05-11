@@ -36,7 +36,233 @@ VALUES
 ('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343); 
 ```
 
-## What if I want full names?, CONCAT
+## What if I want full names?, CONCAT, CONCAT_WS: WS measn "with separator"
+```
+mysql> SELECT author_fname, author_lname FROM books;
++--------------+----------------+
+| author_fname | author_lname   |
++--------------+----------------+
+| Jhumpa       | Lahiri         |
+| Neil         | Gaiman         |
+| Neil         | Gaiman         |
+| Jhumpa       | Lahiri         |
+| Dave         | Eggers         |
+| Dave         | Eggers         |
+| Michael      | Chabon         |
+| Patti        | Smith          |
+| Dave         | Eggers         |
+| Neil         | Gaiman         |
+| Raymond      | Carver         |
+| Raymond      | Carver         |
+| Don          | DeLillo        |
+| John         | Steinbeck      |
+| David        | Foster Wallace |
+| David        | Foster Wallace |
++--------------+----------------+
+16 rows in set (0.01 sec)
+
+
+mysql> SELECT
+    ->   CONCAT(author_fname, ' ', author_lname)
+    -> FROM books;
++-----------------------------------------+
+| CONCAT(author_fname, ' ', author_lname) |
++-----------------------------------------+
+| Jhumpa Lahiri                           |
+| Neil Gaiman                             |
+| Neil Gaiman                             |
+| Jhumpa Lahiri                           |
+| Dave Eggers                             |
+| Dave Eggers                             |
+| Michael Chabon                          |
+| Patti Smith                             |
+| Dave Eggers                             |
+| Neil Gaiman                             |
+| Raymond Carver                          |
+| Raymond Carver                          |
+| Don DeLillo                             |
+| John Steinbeck                          |
+| David Foster Wallace                    |
+| David Foster Wallace                    |
++-----------------------------------------+
+16 rows in set (0.00 sec)
+
+
+mysql> SELECT
+    ->   CONCAT(author_fname, ' ', author_lname)
+    ->   AS 'full name'
+    -> FROM books;
++----------------------+
+| full name            |
++----------------------+
+| Jhumpa Lahiri        |
+| Neil Gaiman          |
+| Neil Gaiman          |
+| Jhumpa Lahiri        |
+| Dave Eggers          |
+| Dave Eggers          |
+| Michael Chabon       |
+| Patti Smith          |
+| Dave Eggers          |
+| Neil Gaiman          |
+| Raymond Carver       |
+| Raymond Carver       |
+| Don DeLillo          |
+| John Steinbeck       |
+| David Foster Wallace |
+| David Foster Wallace |
++----------------------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT author_fname AS first, author_lname AS last,
+    ->   CONCAT(author_fname, ' ', author_lname) AS full
+    -> FROM books;
++---------+----------------+----------------------+
+| first   | last           | full                 |
++---------+----------------+----------------------+
+| Jhumpa  | Lahiri         | Jhumpa Lahiri        |
+| Neil    | Gaiman         | Neil Gaiman          |
+| Neil    | Gaiman         | Neil Gaiman          |
+| Jhumpa  | Lahiri         | Jhumpa Lahiri        |
+| Dave    | Eggers         | Dave Eggers          |
+| Dave    | Eggers         | Dave Eggers          |
+| Michael | Chabon         | Michael Chabon       |
+| Patti   | Smith          | Patti Smith          |
+| Dave    | Eggers         | Dave Eggers          |
+| Neil    | Gaiman         | Neil Gaiman          |
+| Raymond | Carver         | Raymond Carver       |
+| Raymond | Carver         | Raymond Carver       |
+| Don     | DeLillo        | Don DeLillo          |
+| John    | Steinbeck      | John Steinbeck       |
+| David   | Foster Wallace | David Foster Wallace |
+| David   | Foster Wallace | David Foster Wallace |
++---------+----------------+----------------------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT CONCAT(title, '-', author_fname, '-', author_lname) FROM books;
++--------------------------------------------------------------------+
+| CONCAT(title, '-', author_fname, '-', author_lname)                |
++--------------------------------------------------------------------+
+| The Namesake-Jhumpa-Lahiri                                         |
+| Norse Mythology-Neil-Gaiman                                        |
+| American Gods-Neil-Gaiman                                          |
+| Interpreter of Maladies-Jhumpa-Lahiri                              |
+| A Hologram for the King: A Novel-Dave-Eggers                       |
+| The Circle-Dave-Eggers                                             |
+| The Amazing Adventures of Kavalier & Clay-Michael-Chabon           |
+| Just Kids-Patti-Smith                                              |
+| A Heartbreaking Work of Staggering Genius-Dave-Eggers              |
+| Coraline-Neil-Gaiman                                               |
+| What We Talk About When We Talk About Love: Stories-Raymond-Carver |
+| Where I'm Calling From: Selected Stories-Raymond-Carver            |
+| White Noise-Don-DeLillo                                            |
+| Cannery Row-John-Steinbeck                                         |
+| Oblivion: Stories-David-Foster Wallace                             |
+| Consider the Lobster-David-Foster Wallace                          |
++--------------------------------------------------------------------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     CONCAT_WS(' - ', title, author_fname, author_lname)
+    -> FROM books;
++------------------------------------------------------------------------+
+| CONCAT_WS(' - ', title, author_fname, author_lname)                    |
++------------------------------------------------------------------------+
+| The Namesake - Jhumpa - Lahiri                                         |
+| Norse Mythology - Neil - Gaiman                                        |
+| American Gods - Neil - Gaiman                                          |
+| Interpreter of Maladies - Jhumpa - Lahiri                              |
+| A Hologram for the King: A Novel - Dave - Eggers                       |
+| The Circle - Dave - Eggers                                             |
+| The Amazing Adventures of Kavalier & Clay - Michael - Chabon           |
+| Just Kids - Patti - Smith                                              |
+| A Heartbreaking Work of Staggering Genius - Dave - Eggers              |
+| Coraline - Neil - Gaiman                                               |
+| What We Talk About When We Talk About Love: Stories - Raymond - Carver |
+| Where I'm Calling From: Selected Stories - Raymond - Carver            |
+| White Noise - Don - DeLillo                                            |
+| Cannery Row - John - Steinbeck                                         |
+| Oblivion: Stories - David - Foster Wallace                             |
+| Consider the Lobster - David - Foster Wallace                          |
++------------------------------------------------------------------------+
+16 rows in set (0.01 sec)
 ```
 
+## SUBSTRING
+```
+
+mysql> SELECT SUBSTRING('Hello World', 1, 4);
++--------------------------------+
+| SUBSTRING('Hello World', 1, 4) |
++--------------------------------+
+| Hell                           |
++--------------------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT SUBSTRING('Hello World', 7);
++-----------------------------+
+| SUBSTRING('Hello World', 7) |
++-----------------------------+
+| World                       |
++-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT SUBSTRING('Hello World', -3);
++------------------------------+
+| SUBSTRING('Hello World', -3) |
++------------------------------+
+| rld                          |
++------------------------------+
+1 row in set (0.08 sec)
+
+mysql> SELECT SUBSTRING(title, 1, 10) AS 'short title' FROM books;
++-------------+
+| short title |
++-------------+
+| The Namesa  |
+| Norse Myth  |
+| American G  |
+| Interprete  |
+| A Hologram  |
+| The Circle  |
+| The Amazin  |
+| Just Kids   |
+| A Heartbre  |
+| Coraline    |
+| What We Ta  |
+| Where I'm   |
+| White Nois  |
+| Cannery Ro  |
+| Oblivion:   |
+| Consider t  |
++-------------+
+16 rows in set (0.08 sec)
+
+mysql> SELECT CONCAT
+    ->     (
+    ->         SUBSTRING(title, 1, 10),
+    ->         '...'
+    ->     ) AS 'short title'
+    -> FROM books;
++---------------+
+| short title   |
++---------------+
+| The Namesa... |
+| Norse Myth... |
+| American G... |
+| Interprete... |
+| A Hologram... |
+| The Circle... |
+| The Amazin... |
+| Just Kids...  |
+| A Heartbre... |
+| Coraline...   |
+| What We Ta... |
+| Where I'm ... |
+| White Nois... |
+| Cannery Ro... |
+| Oblivion: ... |
+| Consider t... |
++---------------+
+16 rows in set (0.00 sec)
 ```
