@@ -1,6 +1,8 @@
 # MySQL_String_Functions
 
-## Book Data and SQL Code to create TABLE
+![MySQL_String_Function_Doc](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html)
+
+## Book Data (book_data.sql) and SQL Code to create TABLE
 ```
 CREATE TABLE books 
 	(
@@ -34,8 +36,7 @@ VALUES
 ('Consider the Lobster', 'David', 'Foster Wallace', 2005, 92, 343); 
 ```
 
-## Book Data and SQL Code to create TABLE
+## What if I want full names?, CONCAT
 ```
-
 
 ```
