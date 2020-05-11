@@ -1,6 +1,7 @@
 # MySQL_String_Functions
 
 [MySQL_String_Function_Doc](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html)
+
 [SQL-Formatter](https://sql-format.com/)
 
 ## Book Data (book_data.sql) and SQL Code to create TABLE
