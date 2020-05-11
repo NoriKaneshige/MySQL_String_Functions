@@ -1,6 +1,7 @@
 # MySQL_String_Functions
 
 [MySQL_String_Function_Doc](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html)
+[SQL-Formatter](https://sql-format.com/)
 
 ## Book Data (book_data.sql) and SQL Code to create TABLE
 ```
@@ -264,5 +265,165 @@ mysql> SELECT CONCAT
 | Oblivion: ... |
 | Consider t... |
 +---------------+
+16 rows in set (0.00 sec)
+```
+## REPLACE
+```
+mysql> SELECT REPLACE('HellO World', 'o', '*');
++----------------------------------+
+| REPLACE('HellO World', 'o', '*') |
++----------------------------------+
+| HellO W*rld                      |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->   REPLACE('cheese bread coffee milk', ' ', ' and ');
++---------------------------------------------------+
+| REPLACE('cheese bread coffee milk', ' ', ' and ') |
++---------------------------------------------------+
+| cheese and bread and coffee and milk              |
++---------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT REPLACE(title, 'e ', '3') FROM books;
++---------------------------------------------------+
+| REPLACE(title, 'e ', '3')                         |
++---------------------------------------------------+
+| Th3Namesake                                       |
+| Nors3Mythology                                    |
+| American Gods                                     |
+| Interpreter of Maladies                           |
+| A Hologram for th3King: A Novel                   |
+| Th3Circle                                         |
+| Th3Amazing Adventures of Kavalier & Clay          |
+| Just Kids                                         |
+| A Heartbreaking Work of Staggering Genius         |
+| Coraline                                          |
+| What W3Talk About When W3Talk About Love: Stories |
+| Wher3I'm Calling From: Selected Stories           |
+| Whit3Noise                                        |
+| Cannery Row                                       |
+| Oblivion: Stories                                 |
+| Consider th3Lobster                               |
++---------------------------------------------------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     SUBSTRING(REPLACE(title, 'e', '3'), 1, 10) AS 'weird string'
+    -> FROM books;
++--------------+
+| weird string |
++--------------+
+| Th3 Nam3sa   |
+| Nors3 Myth   |
+| Am3rican G   |
+| Int3rpr3t3   |
+| A Hologram   |
+| Th3 Circl3   |
+| Th3 Amazin   |
+| Just Kids    |
+| A H3artbr3   |
+| Coralin3     |
+| What W3 Ta   |
+| Wh3r3 I'm    |
+| Whit3 Nois   |
+| Cann3ry Ro   |
+| Oblivion:    |
+| Consid3r t   |
++--------------+
+16 rows in set (0.00 sec)
+```
+
+## REVERSE
+```
+mysql> SELECT REVERSE('Hello World');
++------------------------+
+| REVERSE('Hello World') |
++------------------------+
+| dlroW olleH            |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CONCAT(author_fname, REVERSE(author_fname)) FROM books;
++---------------------------------------------+
+| CONCAT(author_fname, REVERSE(author_fname)) |
++---------------------------------------------+
+| JhumpaapmuhJ                                |
+| NeillieN                                    |
+| NeillieN                                    |
+| JhumpaapmuhJ                                |
+| DaveevaD                                    |
+| DaveevaD                                    |
+| MichaelleahciM                              |
+| PattiittaP                                  |
+| DaveevaD                                    |
+| NeillieN                                    |
+| RaymonddnomyaR                              |
+| RaymonddnomyaR                              |
+| DonnoD                                      |
+| JohnnhoJ                                    |
+| DaviddivaD                                  |
+| DaviddivaD                                  |
++---------------------------------------------+
+16 rows in set (0.00 sec)
+```
+## CHAR_LENGTH
+```
+
+mysql> SELECT CHAR_LENGTH('Hello World');
++----------------------------+
+| CHAR_LENGTH('Hello World') |
++----------------------------+
+|                         11 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT author_lname, CHAR_LENGTH(author_lname) AS 'length' FROM books;
++----------------+--------+
+| author_lname   | length |
++----------------+--------+
+| Lahiri         |      6 |
+| Gaiman         |      6 |
+| Gaiman         |      6 |
+| Lahiri         |      6 |
+| Eggers         |      6 |
+| Eggers         |      6 |
+| Chabon         |      6 |
+| Smith          |      5 |
+| Eggers         |      6 |
+| Gaiman         |      6 |
+| Carver         |      6 |
+| Carver         |      6 |
+| DeLillo        |      7 |
+| Steinbeck      |      9 |
+| Foster Wallace |     14 |
+| Foster Wallace |     14 |
++----------------+--------+
+16 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->   CONCAT(author_lname, ' is ', CHAR_LENGTH(author_lname), ' characters long')
+    -> FROM books;
++-----------------------------------------------------------------------------+
+| CONCAT(author_lname, ' is ', CHAR_LENGTH(author_lname), ' characters long') |
++-----------------------------------------------------------------------------+
+| Lahiri is 6 characters long                                                 |
+| Gaiman is 6 characters long                                                 |
+| Gaiman is 6 characters long                                                 |
+| Lahiri is 6 characters long                                                 |
+| Eggers is 6 characters long                                                 |
+| Eggers is 6 characters long                                                 |
+| Chabon is 6 characters long                                                 |
+| Smith is 5 characters long                                                  |
+| Eggers is 6 characters long                                                 |
+| Gaiman is 6 characters long                                                 |
+| Carver is 6 characters long                                                 |
+| Carver is 6 characters long                                                 |
+| DeLillo is 7 characters long                                                |
+| Steinbeck is 9 characters long                                              |
+| Foster Wallace is 14 characters long                                        |
+| Foster Wallace is 14 characters long                                        |
++-----------------------------------------------------------------------------+
 16 rows in set (0.00 sec)
 ```
